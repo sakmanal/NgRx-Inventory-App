@@ -1,0 +1,22 @@
+<p-menubar [model]="items">
+  <div class="p-d-flex p-ai-center">
+    <div *ngIf="isLoggedIn">Welcome {{ userName }}</div>
+    <button
+     *ngIf="isLoggedIn"
+      type="button"
+      pButton
+      label="Logout"
+      icon="pi pi-power-off"
+      style="margin-left: 0.25em"
+    ></button>
+    <button
+    *ngIf="!isLoggedIn"
+      type="button"
+      pButton
+      label="Login"
+      icon="pi pi-lock"
+      style="margin-left: 0.25em"
+      routerLink='/login'
+    ></button>
+  </div>
+</p-menubar>
