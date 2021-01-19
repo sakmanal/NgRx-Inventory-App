@@ -1,9 +1,105 @@
-<p-card>
-  <p-header>
-      Header content here
-  </p-header>
-  Body Content
-  <p-footer>
-      Footer content here
-  </p-footer>
-</p-card>
+<div class="container">
+  <div class="card">
+    <form
+      novalidate
+      (ngSubmit)="login(loginForm)"
+      #loginForm="ngForm"
+      autocomplete="off"
+    >
+      <p-card>
+
+        <p-header>
+          <span class="card-header">
+            {{ pageTitle }}
+          </span>
+        </p-header>
+
+        <div class="fgroup">
+          <label for="username">Username</label>
+          <div class="p-inputgroup p-input-filled">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+              type="username"
+              aria-describedby="username-help"
+              id="userName"
+              placeholder="User Name (required)"
+              required
+              ngModel
+              name="userName"
+              #userNameVar="ngModel"
+              [ngClass]="{
+                'p-invalid':
+                  (userNameVar.touched || userNameVar.dirty) &&
+                  !userNameVar.valid
+              }"
+              pInputText
+            />
+          </div>
+          <small
+            *ngIf="
+              (userNameVar.touched || userNameVar.dirty) &&
+              passwordVar.hasError('required')
+            "
+            id="username-help"
+            class="p-invalid"
+            >User name is required.</small
+          >
+        </div>
+
+        <div class="fgroup">
+          <label for="password">Password</label>
+          <div class="p-inputgroup p-input-filled">
+            <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+            <input
+              id="password"
+              [type]="(maskUserName$ | async) ? 'password' : 'text'"
+              placeholder="Password (required)"
+              required
+              ngModel
+              name="password"
+              aria-describedby="password-help"
+              [ngClass]="{
+                'p-invalid':
+                  (passwordVar.touched || passwordVar.dirty) &&
+                  !passwordVar.valid
+              }"
+              pInputText
+              #passwordVar="ngModel"
+            />
+            <button type="button" pButton pRipple [icon]="(maskUserName$ | async) ? 'pi pi-eye-slash' : 'pi pi-eye'" styleClass="p-button-danger" (click)="checkChanged()"></button>
+          </div>
+          <small
+            id="password-help"
+            class="p-invalid"
+            *ngIf="
+              (passwordVar.touched || passwordVar.dirty) &&
+              passwordVar.hasError('required')
+            "
+            >Password is required.</small
+          >
+        </div>
+
+
+        <p-footer>
+          <button
+            pButton
+            type="submit"
+            label="Log In"
+            icon="pi pi-sign-in"
+            iconPos="left"
+            [disabled]="!loginForm.valid"
+          ></button>
+          <button
+            pButton
+            class="p-button-secondary p-ml-2"
+            type="button"
+            label="Cancel"
+            icon="pi pi-times"
+            iconPos="left"
+            (click)="cancel()"
+          ></button>
+        </p-footer>
+      </p-card>
+    </form>
+  </div>
+</div>
