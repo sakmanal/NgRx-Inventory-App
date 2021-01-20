@@ -1,0 +1,28 @@
+<div class="edit-container">
+  <p-messages *ngIf="errorMessage" severity="error">
+    <ng-template pTemplate>
+      <div>{{ errorMessage }}</div>
+    </ng-template>
+  </p-messages>
+
+  <p-card [header]="pageTitle">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="firstname1">Firstname</label>
+        <input id="firstname1" type="text" pInputText class="p-invalid" aria-describedby="username2-help" />
+        <small id="username2-help" class="p-invalid"
+          >Username is not available.</small
+        >
+      </div>
+      <div class="p-field">
+        <label for="lastname1">Lastname</label>
+        <input id="lastname1" type="text" pInputText class="p-invalid" aria-describedby="username2-help" />
+        <small id="username2-help" class="p-invalid"
+          >Username is not available.</small
+        >
+      </div>
+    </div>
+  </p-card>
+</div>
+
+

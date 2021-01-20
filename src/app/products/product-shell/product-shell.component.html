@@ -1,0 +1,22 @@
+<div class="p-d-flex p-flex-wrap shell">
+  <app-product-list
+    [displayCode]="displayCode$ | async"
+    [products]="products$ | async"
+    [selectedProduct]="selectedProduct$ | async"
+    [errorMessage]="errorMessage$ | async"
+    (displayCodeChanged)="checkChanged()"
+    (initializeNewProduct)="newProduct()"
+    (productWasSelected)="productSelected($any($event))"
+  >
+  </app-product-list>
+
+  <app-product-edit
+    [selectedProduct]="selectedProduct$ | async"
+    [errorMessage]="errorMessage$ | async"
+    (clearCurrent)="clearProduct()"
+    (update)="updateProduct($any($event))"
+    (delete)="deleteProduct($any($event))"
+    (create)="saveProduct($any($event))"
+  >
+  </app-product-edit>
+</div>

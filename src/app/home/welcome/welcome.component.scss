@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 58px);
+  height: calc(100vh - 58px - 58px - 2rem);
   .card {
     width: 100%;
     max-width: 600px;
@@ -31,5 +31,9 @@
   .icon {
     position:relative;
     top: -117px;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
