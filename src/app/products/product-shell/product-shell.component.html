@@ -1,5 +1,6 @@
 <div class="p-d-flex p-flex-wrap shell">
   <app-product-list
+    style="flex: 1;"
     [displayCode]="displayCode$ | async"
     [products]="products$ | async"
     [selectedProduct]="selectedProduct$ | async"
@@ -11,6 +12,7 @@
   </app-product-list>
 
   <app-product-edit
+    style="flex: 2;"
     [selectedProduct]="selectedProduct$ | async"
     [errorMessage]="errorMessage$ | async"
     (clearCurrent)="clearProduct()"

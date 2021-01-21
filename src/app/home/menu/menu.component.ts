@@ -31,14 +31,12 @@ export class MenuComponent implements OnInit {
       {
           label: 'Home',
           icon: 'pi pi-fw pi-home',
-          routerLink: '/welcome',
-          routerLinkActiveOptions: ''
+          routerLink: '/welcome'
       },
       {
         label: 'Product List',
         icon: 'pi pi-fw pi-list',
-        routerLink: '/products',
-        routerLinkActiveOptions: ''
+        routerLink: '/products'
       }
     ];
   }

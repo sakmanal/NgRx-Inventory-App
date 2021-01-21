@@ -6,6 +6,8 @@ import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { OrderListModule } from 'primeng/orderlist';
 import { MessagesModule } from 'primeng/messages';
+import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 const modules = [
   MenubarModule,
@@ -15,7 +17,9 @@ const modules = [
   CardModule,
   ProgressSpinnerModule,
   OrderListModule,
-  MessagesModule
+  MessagesModule,
+  RatingModule,
+  InputTextareaModule
 ];
 
 @NgModule({
