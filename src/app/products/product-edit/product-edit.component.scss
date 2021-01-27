@@ -1,7 +1,15 @@
 .edit-container {
   margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 input {
   min-width: 250px;
+}
+
+@media only screen and (max-width: 645px) {
+  .edit-container {
+    margin-top: 10px;
+    margin-left: 0;
+  }
 }

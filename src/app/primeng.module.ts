@@ -8,6 +8,7 @@ import { OrderListModule } from 'primeng/orderlist';
 import { MessagesModule } from 'primeng/messages';
 import { RatingModule } from 'primeng/rating';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ToastModule } from 'primeng/toast';
 
 const modules = [
   MenubarModule,
@@ -19,7 +20,8 @@ const modules = [
   OrderListModule,
   MessagesModule,
   RatingModule,
-  InputTextareaModule
+  InputTextareaModule,
+  ToastModule
 ];
 
 @NgModule({

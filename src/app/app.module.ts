@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Imports for loading & configuring the in-memory web api
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ProductData } from './products/product-data';
+import { MockData } from './mock-data';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 /* Feature Modules */
 import { UserModule } from './user/user.module';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { UserModule } from './user/user.module';
   ],
   imports: [
     BrowserModule,
-    HttpClientInMemoryWebApiModule.forRoot(ProductData),
+    HttpClientInMemoryWebApiModule.forRoot(MockData),
     BrowserAnimationsModule,
     UserModule,
     AppRoutingModule,
@@ -49,7 +50,7 @@ import { UserModule } from './user/user.module';
     }),
     EffectsModule.forRoot([])
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
