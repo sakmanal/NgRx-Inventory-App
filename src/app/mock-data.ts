@@ -149,7 +149,7 @@ export class MockData implements InMemoryDbService {
               code: 'CY'
             },
             company: 'KIA Automotive',
-            status: 'qualified',
+            status: 'renewal',
             lifetimeValue: 2400,
             image: 'https://randomuser.me/api/portraits/men/15.jpg'
           },
@@ -161,7 +161,7 @@ export class MockData implements InMemoryDbService {
               code: 'FI'
             },
             company: 'Program Team',
-            status: 'unqualified',
+            status: 'negotiation',
             lifetimeValue: 4100,
             image: 'https://randomuser.me/api/portraits/women/27.jpg'
           }
