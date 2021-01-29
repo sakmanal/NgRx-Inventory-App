@@ -1,4 +1,9 @@
 <app-customer-table
   [customers]="customers$ | async"
   [errorMessage]="errorMessage$ | async"
+  (delete)="deleteCustomer($any($event))"
+  (edit)="editCustomer($any($event))"
+  (new)="newCustomer()"
 ></app-customer-table>
+<p-confirmDialog [style]="{width: '450px'}" rejectButtonStyleClass="p-button-warning"></p-confirmDialog>
+<p-toast></p-toast>

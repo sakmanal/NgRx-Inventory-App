@@ -12,6 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 const modules = [
   MenubarModule,
@@ -27,7 +29,9 @@ const modules = [
   ToastModule,
   TableModule,
   MultiSelectModule,
-  DropdownModule
+  DropdownModule,
+  ConfirmDialogModule,
+  DynamicDialogModule
 ];
 
 @NgModule({

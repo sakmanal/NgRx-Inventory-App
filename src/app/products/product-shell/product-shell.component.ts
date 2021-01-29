@@ -9,6 +9,8 @@ import { State, getShowProductCode, getCurrentProduct, getProducts, getError } f
 
 import { ProductPageActions } from '../state/actions';
 
+import { ConfirmationService } from 'primeng/api';
+
 @Component({
   selector: 'app-product-shell',
   templateUrl: './product-shell.component.html',
@@ -20,7 +22,7 @@ export class ProductShellComponent implements OnInit {
   products$: Observable<Product[]>;
   errorMessage$: Observable<string>;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 
@@ -53,7 +55,14 @@ export class ProductShellComponent implements OnInit {
   }
 
   deleteProduct(product: Product): void {
-    this.store.dispatch(ProductPageActions.deleteProduct({ productId: product.id }));
+    this.confirmationService.confirm({
+      message: `Are you sure you want to delete the selected (${product.productName}) product?`,
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.store.dispatch(ProductPageActions.deleteProduct({ productId: product.id }));
+      }
+    });
   }
 
   clearProduct(): void {

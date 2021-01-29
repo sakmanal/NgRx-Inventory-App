@@ -15,6 +15,7 @@ import { WelcomeComponent } from './home/welcome/welcome.component';
 import { PageNotFoundComponent } from './home/page-not-found.component';
 
 import { PrimeNgModule } from './primeng.module';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
@@ -24,7 +25,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 /* Feature Modules */
 import { UserModule } from './user/user.module';
-import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { MessageService } from 'primeng/api';
     }),
     EffectsModule.forRoot([])
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,6 +17,9 @@ export class CustomerTableComponent {
 
   @Input() errorMessage: string;
   @Input() customers: Customer[];
+  @Output() delete = new EventEmitter<Customer>();
+  @Output() edit = new EventEmitter<Customer>();
+  @Output() new = new EventEmitter();
 
   @ViewChild('dt') table: Table;
 
@@ -31,12 +34,15 @@ export class CustomerTableComponent {
   }
 
   editCustomer(customer: Customer): void {
-
+    this.edit.emit(customer);
   }
 
   deleteCustomer(customer: Customer): void {
-
+    this.delete.emit(customer);
   }
 
+  newCustomer(): void {
+    this.new.emit();
+  }
 
 }

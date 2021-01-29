@@ -13,13 +13,16 @@ import { customerReducer } from './state/customer.reducer';
 import { CustomerEffects } from './state/customer.effects';
 
 import { PrimeNgModule } from '../primeng.module';
+
 import { CustomerShellComponent } from './customer-shell/customer-shell.component';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
+import { CustomerEditDialogComponent } from './customer-edit-dialog/customer-edit-dialog.component';
 
 const customerRoutes: Routes = [{ path: '', component: CustomerShellComponent }];
 
 @NgModule({
   declarations: [CustomerShellComponent, CustomerTableComponent],
+  entryComponents: [CustomerEditDialogComponent],
   imports: [
     SharedModule,
     StoreModule.forFeature('customers', customerReducer),
@@ -27,9 +30,11 @@ const customerRoutes: Routes = [{ path: '', component: CustomerShellComponent }]
     PrimeNgModule,
     RouterModule.forChild(customerRoutes),
   ],
-  providers: [{
-    provide: LOCALE_ID,
-    useValue: 'de-DE' // 'de-DE' for Germany, 'fr-FR' for France ...
-  }]
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'de-DE' // 'de-DE' for Germany, 'fr-FR' for France ...
+    }
+  ]
 })
 export class CustomersModule { }
