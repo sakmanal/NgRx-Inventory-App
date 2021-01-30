@@ -130,7 +130,7 @@
       <td>
         <span class="p-column-title">Name</span>
         <div class="p-d-flex p-ai-center">
-          <img [alt]="customer.name" [src]="customer.image" class="avatar" />
+          <img [alt]="customer.name" [src]="customer.image | defaultImage:true" class="avatar" />
           <span class="p-ml-2">{{ customer.name }}</span>
         </div>
       </td>

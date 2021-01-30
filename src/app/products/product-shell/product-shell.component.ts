@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Product } from '../product';
@@ -14,7 +14,8 @@ import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-product-shell',
   templateUrl: './product-shell.component.html',
-  styleUrls: ['./product-shell.component.scss']
+  styleUrls: ['./product-shell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductShellComponent implements OnInit {
   displayCode$: Observable<boolean>;

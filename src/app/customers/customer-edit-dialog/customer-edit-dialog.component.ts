@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-
-/* NgRx */
-import { Store } from '@ngrx/store';
-import { CustomerPageActions } from '../state/actions';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { Customer } from '../customer';
-import { State } from '../state';
+import { statuses } from '../../shared/statuses';
+import { countries } from '../../shared/countries';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GenericValidator } from '../../shared/generic-validator';
@@ -14,20 +11,25 @@ import { GenericValidator } from '../../shared/generic-validator';
 @Component({
   selector: 'app-customer-edit-dialog',
   templateUrl: './customer-edit-dialog.component.html',
-  styleUrls: ['./customer-edit-dialog.component.scss']
+  styleUrls: ['./customer-edit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomerEditDialogComponent implements OnInit {
 
+  // customer$: Subscription;
+  selectedCustomer: Customer;
   customerForm: FormGroup;
-    // Use with the generic validation message class
-    displayMessage: { [key: string]: string } = {};
-    private validationMessages: { [key: string]: { [key: string]: string } };
-    private genericValidator: GenericValidator;
+  statuses = statuses;
+  countries = countries;
+  // Use with the generic validation message class
+  displayMessage: { [key: string]: string } = {};
+  private validationMessages: { [key: string]: { [key: string]: string } };
+  private genericValidator: GenericValidator;
 
   constructor(
     private fb: FormBuilder,
     private ref: DynamicDialogRef,
-    private store: Store<State>
+    private config: DynamicDialogConfig,
     ) {
         // Defines all of the validation messages for the form.
         // These could instead be retrieved from a file or database.
@@ -54,20 +56,45 @@ export class CustomerEditDialogComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    // Define the form group
+    this.customerForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      country: ['', Validators.required],
+      company: ['', Validators.required],
+      status: ['', Validators.required],
+      lifetimeValue: ''
+    });
+
+    // Watch for value changes for validation
+    this.customerForm.valueChanges
+    .subscribe(
+      () => this.displayMessage = this.genericValidator.processMessages(this.customerForm)
+    );
+
+    this.selectedCustomer =  this.config.data.customer;
+    this.customerForm.patchValue(this.selectedCustomer);
   }
 
-  saveCustomer(customer: Customer): void {
-    this.store.dispatch(CustomerPageActions.createCustomer({ customer }));
-    this.ref.close();
+  // Also validate on blur
+  // Helpful if the user tabs through required fields
+  blur(): void {
+    this.displayMessage = this.genericValidator.processMessages(this.customerForm);
   }
 
-  updateCustomer(customer: Customer): void {
-    this.store.dispatch(CustomerPageActions.updateCustomer({ customer }));
-    this.ref.close();
+  submitCustomer(): void {
+    if (this.customerForm.valid) {
+      if (this.customerForm.dirty) {
+        // Copy over all of the original customer properties
+        // Then copy over the values from the form
+        // This ensures values not on the form, such as the Id, are retained
+        const customer: Customer = { ...this.selectedCustomer, ...this.customerForm.value };
+        this.ref.close(customer);
+      }
+    }
   }
 
   cancel(): void {
-    this.store.dispatch(CustomerPageActions.clearCurrentCustomer());
     this.ref.close();
   }
 

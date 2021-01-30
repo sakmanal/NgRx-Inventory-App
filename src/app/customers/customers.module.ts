@@ -21,7 +21,7 @@ import { CustomerEditDialogComponent } from './customer-edit-dialog/customer-edi
 const customerRoutes: Routes = [{ path: '', component: CustomerShellComponent }];
 
 @NgModule({
-  declarations: [CustomerShellComponent, CustomerTableComponent],
+  declarations: [CustomerShellComponent, CustomerTableComponent, CustomerEditDialogComponent],
   entryComponents: [CustomerEditDialogComponent],
   imports: [
     SharedModule,

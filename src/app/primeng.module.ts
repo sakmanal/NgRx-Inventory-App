@@ -14,6 +14,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 const modules = [
   MenubarModule,
@@ -31,7 +32,8 @@ const modules = [
   MultiSelectModule,
   DropdownModule,
   ConfirmDialogModule,
-  DynamicDialogModule
+  DynamicDialogModule,
+  InputNumberModule
 ];
 
 @NgModule({

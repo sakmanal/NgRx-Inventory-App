@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Customer } from '../customer';
 import { CustomerEditDialogComponent } from '../customer-edit-dialog/customer-edit-dialog.component';
 
@@ -10,14 +10,17 @@ import { Observable } from 'rxjs';
 
 import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CustomerService } from '../customer.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-shell',
   templateUrl: './customer-shell.component.html',
   styleUrls: ['./customer-shell.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CustomerShellComponent implements OnInit, OnDestroy {
+export class CustomerShellComponent implements OnInit {
   customers$: Observable<Customer[]>;
   errorMessage$: Observable<string>;
 
@@ -26,7 +29,8 @@ export class CustomerShellComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<State>,
     private dialogService: DialogService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private customerService: CustomerService
     ) { }
 
   ngOnInit(): void {
@@ -52,27 +56,34 @@ export class CustomerShellComponent implements OnInit, OnDestroy {
   }
 
   editCustomer(customer: Customer): void {
-    this.store.dispatch(CustomerPageActions.setCurrentCustomer({ currentCustomerId: customer.id }));
-    this.openDialog(`Edit Customer: ${customer.name}`);
+    this.openEditDialog(`Edit Customer: ${customer.name}`, customer);
   }
 
   newCustomer(): void {
-    this.store.dispatch(CustomerPageActions.initializeCurrentCustomer());
-    this.openDialog('New Customer');
+    this.openEditDialog('New Customer', this.customerService.initialCustomer);
   }
 
-  private openDialog(title: string): void {
+  private openEditDialog(title: string, selecteCustomer: Customer): void {
     this.ref = this.dialogService.open(CustomerEditDialogComponent, {
+      data: {
+        customer: selecteCustomer
+      },
       header: title,
-      contentStyle: {'max-height': '500px', overflow: 'auto'},
+      width: '400px',
+      contentStyle: {overflow: 'visible'},
       baseZIndex: 10000,
     });
-  }
 
-  ngOnDestroy(): void {
-    if (this.ref) {
-        this.ref.close();
-    }
+    this.ref.onClose.pipe(
+      filter(customer => customer)
+    )
+    .subscribe((customer: Customer) => {
+      if (customer?.id === 0) {
+        this.store.dispatch(CustomerPageActions.createCustomer({ customer }));
+      } else {
+        this.store.dispatch(CustomerPageActions.updateCustomer({ customer }));
+      }
+    });
   }
 
 }
