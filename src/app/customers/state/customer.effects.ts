@@ -38,7 +38,9 @@ export class CustomerEffects {
       ofType(CustomerPageActions.updateCustomer),
       concatMap((action) =>
         this.customerService.updateCustomer(action.customer).pipe(
-          tap((customer) =>  this.messageService.add({severity: 'success', summary: 'Success', detail:  `${customer.name} updated successfully`})),
+          tap((customer) =>  {
+            this.messageService.add({severity: 'success', summary: 'Success', detail:  `${customer.name} updated successfully`})
+          }),
           map((customer) => CustomerApiActions.updateCustomerSuccess({ customer })),
           catchError((error) =>
             of(CustomerApiActions.updateCustomerFailure({ error }))

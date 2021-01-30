@@ -11,6 +11,14 @@ import { Customer } from './customer';
 })
 export class CustomerService {
   private customersUrl = 'api/customers';
+  initialCustomer: Customer = {
+    id: 0,
+    name: '',
+    country: null,
+    status: 'new',
+    company: null,
+    lifetimeValue: 0
+  };
 
   constructor(private http: HttpClient) { }
 

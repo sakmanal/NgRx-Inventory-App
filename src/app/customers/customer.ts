@@ -9,7 +9,7 @@ export interface Customer {
   name: string;
   country: Country;
   company: string;
-  status?: string;
+  status: string;
   image?: string;
-  lifetimeValue: number;
+  lifetimeValue?: number;
 }

@@ -115,9 +115,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
 
   deleteProduct(): void {
     if (this.selectedProduct && this.selectedProduct.id) {
-      if (confirm(`Really delete the product: ${this.selectedProduct.productName}?`)) {
         this.delete.emit(this.selectedProduct);
-      }
     } else {
       // No need to delete, it was never saved
       this.clearCurrent.emit();

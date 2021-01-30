@@ -27,6 +27,7 @@ export const getCurrentCustomer = createSelector(
               id: 0,
               name: '',
               country: null,
+              status: 'new',
               company: null,
               lifetimeValue: 0
             } as Customer);

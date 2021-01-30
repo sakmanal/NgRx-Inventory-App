@@ -1,4 +1,8 @@
 <app-customer-table
   [customers]="customers$ | async"
   [errorMessage]="errorMessage$ | async"
+  (delete)="deleteCustomer($any($event))"
+  (edit)="editCustomer($any($event))"
+  (new)="newCustomer()"
 ></app-customer-table>
+
