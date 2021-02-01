@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
 
 import { User } from './user';
 
@@ -6,27 +7,31 @@ import { User } from './user';
     providedIn: 'root',
 })
 export class AuthService {
-    currentUser: User | null;
-    redirectUrl: string;
 
-    constructor() { }
+  constructor() { }
 
-    isLoggedIn(): boolean {
-        return !!this.currentUser;
-    }
+  login(userName: string, password: string): Observable<User> {
+    // Code here would log into a back end service
+    // and return user information
+    // This is just hard-coded here.
 
-    login(userName: string, password: string): void {
-        // Code here would log into a back end service
-        // and return user information
-        // This is just hard-coded here.
-        this.currentUser = {
-            id: 2,
-            userName,
-            isAdmin: false
-        };
-    }
+    // return throwError('Wrong Password or Username');
 
-    logout(): void {
-        this.currentUser = null;
-    }
+    const user = {
+      id: 2,
+      userName,
+      isAdmin: false
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+    return of(user);
+  }
+
+  logOut(): void {
+    localStorage.removeItem('user');
+  }
+
+  getSavedUser(): User | null {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
 }

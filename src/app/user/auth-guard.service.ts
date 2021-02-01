@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
+/* NgRx */
+import { Store } from '@ngrx/store';
+import { State } from '../state/app.state';
+import { isLoggedIn } from './state/user.reducer';
+import { UserApiActions } from './state/actions';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private store: Store<State>) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return this.checkLoggedIn(state.url);
-  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.store.select(isLoggedIn).pipe(
+      map((authed) => {
+        if (!authed) {
+          this.store.dispatch(UserApiActions.loginRedirect( { redirectUrl: state.url }));
+          return false;
+        }
 
-  checkLoggedIn(url: string): boolean {
-    if (this.authService.isLoggedIn()) {
-      return true;
-    }
-
-    // Retain the attempted URL for redirection
-    this.authService.redirectUrl = url;
-    this.router.navigate(['/login']);
-    return false;
+        return true;
+      }),
+      take(1)
+    );
   }
 }

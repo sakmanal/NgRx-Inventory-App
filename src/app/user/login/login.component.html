@@ -14,6 +14,12 @@
           </span>
         </p-header>
 
+        <p-messages severity="info">
+          <ng-template pTemplate>
+              <div>Type any credentials to log in</div>
+          </ng-template>
+        </p-messages>
+
         <div class="fgroup">
           <label for="username">Username</label>
           <div class="p-inputgroup p-input-filled">
@@ -78,6 +84,12 @@
             >Password is required.</small
           >
         </div>
+
+        <p-messages *ngIf="error$ | async as errorMessage" severity="error">
+          <ng-template pTemplate>
+              <div>{{ errorMessage }}</div>
+          </ng-template>
+        </p-messages>
 
 
         <p-footer>

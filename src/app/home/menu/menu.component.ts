@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
-
-import { AuthService } from '../../user/auth.service';
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -12,19 +8,11 @@ import { AuthService } from '../../user/auth.service';
 export class MenuComponent implements OnInit {
 
   items: MenuItem[];
+  @Input() isLoggedIn: boolean;
+  @Input() UserName: string;
+  @Output() logOutUser = new EventEmitter();
 
-  get isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-  get userName(): string {
-    if (this.authService.currentUser) {
-      return this.authService.currentUser.userName;
-    }
-    return '';
-  }
-
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.items = [
@@ -47,8 +35,7 @@ export class MenuComponent implements OnInit {
   }
 
   logOut(): void {
-    this.authService.logout();
-    this.router.navigate(['/welcome']);
+    this.logOutUser.emit();
   }
 
 }
