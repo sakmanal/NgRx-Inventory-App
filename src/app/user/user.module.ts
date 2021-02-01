@@ -8,11 +8,14 @@ import { LoginComponent } from './login/login.component';
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './state/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 import { PrimeNgModule } from '../primeng.module';
+import { UserEffects } from './state/user.effects';
+import { LoginpageGuardService } from './loginPage-guard.service';
 
 const userRoutes: Routes = [
-  { path: 'login', component: LoginComponent }
+  { path: 'login', canActivate: [LoginpageGuardService], component: LoginComponent }
 ];
 
 @NgModule({
@@ -20,6 +23,7 @@ const userRoutes: Routes = [
     SharedModule,
     RouterModule.forChild(userRoutes),
     StoreModule.forFeature('users', userReducer),
+    EffectsModule.forFeature([UserEffects]),
     PrimeNgModule
   ],
   declarations: [
