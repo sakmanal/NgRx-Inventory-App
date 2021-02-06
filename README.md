@@ -1,6 +1,6 @@
 # NgRx Inventory App
 
-![logo](https://user-images.githubusercontent.com/32598290/106369444-03fc3980-635a-11eb-96f4-22c8dc86eeb1.png)
+![Blank diagram](https://user-images.githubusercontent.com/32598290/107129213-7b871700-68cc-11eb-823c-8cbf05c3744f.png)
 
 A simple Inventory Management App build with Angular and NgRx.
 
