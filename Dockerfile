@@ -24,4 +24,4 @@ COPY --from=node /app/dist/ngrxInventoryManagement /usr/share/nginx/html
 COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
 
 # docker build -t ngrx-inventory-app -f Dockerfile .
-# docker run -p 8080:80 ngrx-inventory-app
+# docker run -d -p 8080:80 ngrx-inventory-app
