@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  angular-app:
+    build:
+      context: ./
+      dockerfile: dev.dockerfile
+    ports:
+      # exposes the 4200 port (ng serve uses default port 4200) of the Docker container
+      # to other docker containers, and maps it to the 4200 port of the Docker host
+      - "4200:4200"
+      # Webpack uses a port to do live reload of the application. That port is 49153 by default.
+      - "49153:49153"
+    container_name: angular-app
+    volumes:
+      # mounts the code in the containers /usr/src/app directory
+      - ./:/usr/src/app
+      # mounts the node_modules of the container to be used instead of
+      # the locally installed node_modules folder
+      # (Deleting the locally installed node modules is possible now)
+      # Without the anonymous volume ('/usr/src/app/node_modules'),
+      # the node_modules directory would be overwritten by the mounting
+      # of the host directory at runtime, overwriting the node_modules
+      # that were installed during the build.
+      - /usr/src/app/node_modules
+
+
+# docker-compose -f docker-compose.dev.yml build
+# docker-compose -f docker-compose.dev.yml up
