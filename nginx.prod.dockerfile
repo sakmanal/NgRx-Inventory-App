@@ -1,5 +1,10 @@
+# Take advantage of the multistage build pattern to create a temporary image used for building the artifact
+# – the production-ready Angular static files – that is then copied over to the production image.
+# The temporary build image is discarded along with the original files, folders,
+# and dependencies associated with the image. This produces a lean, production-ready image.
+
 ##### Stage 1 (build the App)
-FROM node:latest as node
+FROM node:lts as node
 LABEL author="Thanos Manalikadis"
 WORKDIR /app
 # copy package json files into the working dir
@@ -27,5 +32,5 @@ COPY --from=node /app/dist/ngrxInventoryManagement /usr/share/nginx/html
 # copy our config file
 COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
 
-# docker build -t ngrx-inventory-app -f Dockerfile .
-# docker run -d -p 8080:80 ngrx-inventory-app
+# docker build -t ngrx-inventory-app:prod -f nginx.prod.dockerfile .
+# docker run -d -p 8080:80 ngrx-inventory-app:prod

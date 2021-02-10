@@ -7,8 +7,6 @@ COPY . .
 EXPOSE 4200 49153
 CMD ["npm", "run", "dev"]
 
-#### build the image
-# docker build -t ngrx-inventory-app -f dev.dockerfile .
 
-#### run the container
-# docker run -it -p 4200:4200 -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules --rm ngrx-inventory-app
+# docker build -t ngrx-inventory-app:dev -f dev.dockerfile .
+# docker run -it -p 4200:4200 -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules --rm ngrx-inventory-app:dev
