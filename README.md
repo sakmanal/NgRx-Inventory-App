@@ -12,7 +12,6 @@ Check demo [here](https://sakmanal.github.io/NgRx-Inventory-App) !!
 - Containerize the app with Docker.
 
 ## Running the Project Locally
-___
 ### Development server
 1. Install the Angular CLI: `npm install -g @angular/cli`.
 1. Run `npm install` at the root of this project.
@@ -22,7 +21,6 @@ ___
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running the Project Using Docker Containers
-___
 ### Development server
 1. Run ` docker-compose -f docker-compose.dev.yml build`
 2. Run `docker-compose -f docker-compose.dev.yml up`
