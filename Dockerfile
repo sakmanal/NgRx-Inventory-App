@@ -8,9 +8,13 @@ WORKDIR /app
 # If they match the SHA256 checksum for the existing layer, the build step for that layer can be skipped.
 # So the separation of the first 2 COPY commands is a Docker caching trick to speed up builds.
 # It is done this way so the project dependencies don't need to be installed every time a code change is made.
+
+# To make building our Docker image even more efficient we can add to the project’s root additional file called .dockerignore .
+# This one works similar to .gitignore and in it we can define what files and folders we want to Docker to ignore.
+# In our case we don’t want to copy any files from node_modules (and dist folders), because they’re not needed in compilation.
 COPY package.json package-lock.json ./
 RUN npm install
-# copy the entire project, recursively into the container for the build (also skips files already there)
+# copying all remaining files, recursively into the container for the build (also skips files already there)
 COPY . .
 # run the bulid process
 RUN npm run build -- --prod
