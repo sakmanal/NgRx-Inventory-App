@@ -68,7 +68,7 @@ export class ProductEffects {
       ofType(ProductPageActions.deleteProduct),
       mergeMap((action) =>
         this.productService.deleteProduct(action.productId).pipe(
-          tap(_ =>  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Deleted successfully'})),
+          tap(() =>  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Deleted successfully'})),
           map(() =>
             ProductApiActions.deleteProductSuccess({
               productId: action.productId,

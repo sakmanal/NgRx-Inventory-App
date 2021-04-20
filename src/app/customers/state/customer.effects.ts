@@ -39,7 +39,7 @@ export class CustomerEffects {
       concatMap((action) =>
         this.customerService.updateCustomer(action.customer).pipe(
           tap((customer) =>  {
-            this.messageService.add({severity: 'success', summary: 'Success', detail:  `${customer.name} updated successfully`})
+            this.messageService.add({severity: 'success', summary: 'Success', detail:  `${customer.name} updated successfully`});
           }),
           map((customer) => CustomerApiActions.updateCustomerSuccess({ customer })),
           catchError((error) =>
@@ -70,7 +70,7 @@ export class CustomerEffects {
       ofType(CustomerPageActions.deleteCustomer),
       mergeMap((action) =>
         this.customerService.deleteCustomer(action.customerId).pipe(
-          tap(_ =>  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Deleted successfully'})),
+          tap(() =>  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Deleted successfully'})),
           map(() =>
             CustomerApiActions.deleteCustomerSuccess({
               customerId: action.customerId,

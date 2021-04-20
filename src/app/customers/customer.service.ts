@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { Customer } from './customer';
 
@@ -39,7 +39,7 @@ export class CustomerService {
       );
   }
 
-  deleteCustomer(id: number): Observable<{}> {
+  deleteCustomer(id: number): Observable<Customer> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.customersUrl}/${id}`;
     return this.http.delete<Customer>(url, { headers })

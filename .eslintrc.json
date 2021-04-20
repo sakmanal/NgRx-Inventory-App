@@ -1,0 +1,69 @@
+{
+  "root": true,
+  "env": {
+    "es6": true
+  },
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/no-empty-lifecycle-method": "off", // is needed in order to avoid unused lifecycle hooks
+        "@typescript-eslint/consistent-type-definitions": "error", // Prefer an interface declaration over a type literal
+        // Disallow accessing properties using square-bracket notation (foo["bar"]). use dot notation (foo.bar) only.
+        "@typescript-eslint/dot-notation": "warn",
+        "@typescript-eslint/no-explicit-any": "off", // Disallow usage of the any type
+        // Require explicit accessibility modifiers (public, private, protected) on class properties and methods
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ],
+        "brace-style": [
+          "off", // will be handled by prettier
+          "1tbs"
+        ],
+        // disallows explicit type declarations on parameters, variables and properties where the type can be easily inferred from its value.
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "semi": ["warn", "always"], // use '' instead of "",
+        "valid-typeof": "error", // enforces comparing typeof expressions to valid string literals.
+        "no-var": "warn", // use const or let instead
+        "eqeqeq": "warn", // warn to use triple equal `===` insted of double `==`
+        "@typescript-eslint/no-for-in-array": "warn", // for-in loop error when used for arrays
+        "@typescript-eslint/no-unused-vars": ["warn", { "args": "none" }], // Disallow unused variables & none - do not check func arguments.
+        "@typescript-eslint/no-empty-function": "off", // is needed in order to avoid bugs and unused functions
+        "@typescript-eslint/explicit-module-boundary-types": "off" // Explicit types for function return values and input types
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}
