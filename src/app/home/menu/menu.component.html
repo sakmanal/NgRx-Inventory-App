@@ -1,6 +1,7 @@
 <p-menubar [model]="items">
   <div class="p-d-flex p-ai-center">
-    <div *ngIf="isLoggedIn">Welcome {{ UserName }}</div>
+    <div *ngIf="isLoggedIn" style="margin-right: 3px">Welcome {{ UserName }}</div>
+    <app-dark-mode-toggle [theme]="theme" (themeChange)="changeTheme()"></app-dark-mode-toggle>
     <button
      *ngIf="isLoggedIn"
       type="button"

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { Theme } from 'src/app/core/theme.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -10,7 +11,9 @@ export class MenuComponent implements OnInit {
   items: MenuItem[];
   @Input() isLoggedIn: boolean;
   @Input() UserName: string;
+  @Input() theme: Theme;
   @Output() logOutUser = new EventEmitter();
+  @Output() switchTheme = new EventEmitter();
 
   constructor() { }
 
@@ -36,6 +39,10 @@ export class MenuComponent implements OnInit {
 
   logOut(): void {
     this.logOutUser.emit();
+  }
+
+  changeTheme(): void {
+    this.switchTheme.emit();
   }
 
 }

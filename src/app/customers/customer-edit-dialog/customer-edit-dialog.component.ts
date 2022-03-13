@@ -6,7 +6,7 @@ import { statuses } from '../../shared/statuses';
 import { countries } from '../../shared/countries';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GenericValidator } from '../../shared/generic-validator';
+import { GenericValidator } from '../../shared/validators/generic-validator';
 
 @Component({
   selector: 'app-customer-edit-dialog',

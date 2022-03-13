@@ -10,8 +10,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from '../product';
-import { GenericValidator } from '../../shared/generic-validator';
-import { NumberValidators } from '../../shared/number.validator';
+import { GenericValidator } from '../../shared/validators/generic-validator';
+import { NumberValidators } from '../../shared/validators/number.validator';
 
 @Component({
   selector: 'app-product-edit',
