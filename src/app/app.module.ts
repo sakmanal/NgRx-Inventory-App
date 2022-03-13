@@ -25,6 +25,8 @@ import { EffectsModule } from '@ngrx/effects';
 
 /* Feature Modules */
 import { UserModule } from './user/user.module';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -38,10 +40,12 @@ import { UserModule } from './user/user.module';
     BrowserModule,
     HttpClientInMemoryWebApiModule.forRoot(MockData),
     BrowserAnimationsModule,
+    CoreModule,
     UserModule,
     AppRoutingModule,
     HttpClientModule,
     PrimeNgModule,
+    SharedModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       name: 'Demo App DevTools',

@@ -1,9 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/primeng.min.css";
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+
+
+
+$primary-alt-color: #38a5ff;
+
+
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #121212;
-  color: aliceblue;
+  background-color: var(--surface-b);
+  color: var(--text-color);
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.p-menubar {
+  background: var(--primary-color) !important;
+  color: var(--surface-a) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.p-menuitem-text, .p-menuitem-icon {
+  color: var(--primary-color-text) !important;
+}
+
+.p-menubar-button {
+  color: var(--primary-color-text) !important;
+  &:hover {
+    background: $primary-alt-color !important;
+  }
+}
+
+.p-menuitem-link:not(.p-disabled):hover {
+  background: $primary-alt-color !important;
+}
+
+.p-menubar .p-menubar-root-list {
+  background: var(--primary-color) !important;
 }

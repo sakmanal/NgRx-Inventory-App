@@ -29,10 +29,15 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/primeng/resources/themes/arya-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "./node_modules/primeflex/primeflex.css"
+              {
+                "input": "src/assets/theme/theme-saga-blue.scss",
+                "bundleName": "light-theme",
+                "inject": false
+              },              {
+                "input": "src/assets/theme/theme-arya-blue.scss",
+                "bundleName": "dark-theme",
+                "inject": false
+              }
             ],
             "scripts": []
           },

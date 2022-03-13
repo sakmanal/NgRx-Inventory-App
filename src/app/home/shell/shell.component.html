@@ -2,7 +2,9 @@
 <app-menu
   [isLoggedIn]="isLoggedIn$ | async"
   [UserName]="currentUserName$ | async"
+  [theme]="themeMode$ | async"
   (logOutUser)="logOut()"
+  (switchTheme)="switchTheme()"
 ></app-menu>
 <div class="main">
   <router-outlet></router-outlet>
