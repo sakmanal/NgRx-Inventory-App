@@ -25,7 +25,7 @@
           <div class="p-inputgroup p-input-filled">
             <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
             <input
-              type="username"
+              type="text"
               aria-describedby="username-help"
               id="userName"
               placeholder="User Name (required)"
@@ -44,7 +44,7 @@
           <small
             *ngIf="
               (userNameVar.touched || userNameVar.dirty) &&
-              passwordVar.hasError('required')
+              userNameVar.hasError('required')
             "
             id="username-help"
             class="p-invalid"
