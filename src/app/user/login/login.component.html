@@ -10,25 +10,25 @@
 
         <p-header>
           <span class="card-header">
-            {{ pageTitle }}
+            {{ 'Login' | translate }}
           </span>
         </p-header>
 
         <p-messages severity="info">
           <ng-template pTemplate>
-              <div>Type any credentials to login</div>
+              <div>{{'Type any credentials to login' | translate}}</div>
           </ng-template>
         </p-messages>
 
         <div class="fgroup">
-          <label for="username">Username</label>
+          <label for="username">{{'Username' | translate}}</label>
           <div class="p-inputgroup p-input-filled">
             <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
             <input
               type="text"
               aria-describedby="username-help"
               id="userName"
-              placeholder="User Name (required)"
+              placeholder="{{'User Name (required)' | translate}}"
               required
               ngModel
               name="userName"
@@ -48,18 +48,18 @@
             "
             id="username-help"
             class="p-invalid"
-            >User name is required.</small
+            >{{'User name is required.' | translate}}</small
           >
         </div>
 
         <div class="fgroup">
-          <label for="password">Password</label>
+          <label for="password">{{'Password' | translate}}</label>
           <div class="p-inputgroup p-input-filled">
             <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
             <input
               id="password"
               [type]="(maskUserName$ | async) ? 'password' : 'text'"
-              placeholder="Password (required)"
+              placeholder="{{'Password (required)' | translate}}"
               required
               ngModel
               name="password"
@@ -81,7 +81,7 @@
               (passwordVar.touched || passwordVar.dirty) &&
               passwordVar.hasError('required')
             "
-            >Password is required.</small
+            >{{'Password is required.' | translate}}</small
           >
         </div>
 
@@ -96,7 +96,7 @@
           <button
             pButton
             type="submit"
-            label="Log In"
+            label="{{'Login' | translate}}"
             icon="pi pi-sign-in"
             iconPos="left"
             [disabled]="!loginForm.valid"
@@ -105,7 +105,7 @@
             pButton
             class="p-button-secondary p-ml-2"
             type="button"
-            label="Cancel"
+            label="{{ 'Cancel' | translate}}"
             icon="pi pi-times"
             iconPos="left"
             (click)="cancel()"

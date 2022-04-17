@@ -50,9 +50,8 @@ export class CustomerEditDialogComponent implements OnInit {
           }
         };
 
-        // Define an instance of the validator for use with this form,
-        // passing in this form's set of validation messages.
-        this.genericValidator = new GenericValidator(this.validationMessages);
+        // Define an instance of the validator for use with this form
+        this.genericValidator = new GenericValidator();
     }
 
   ngOnInit(): void {
@@ -69,7 +68,7 @@ export class CustomerEditDialogComponent implements OnInit {
     // Watch for value changes for validation
     this.customerForm.valueChanges
     .subscribe(
-      () => this.displayMessage = this.genericValidator.processMessages(this.customerForm)
+      () => this.displayMessage = this.genericValidator.processMessages(this.customerForm, this.validationMessages)
     );
 
     this.selectedCustomer =  this.config.data.customer;
@@ -79,7 +78,7 @@ export class CustomerEditDialogComponent implements OnInit {
   // Also validate on blur
   // Helpful if the user tabs through required fields
   blur(): void {
-    this.displayMessage = this.genericValidator.processMessages(this.customerForm);
+    this.displayMessage = this.genericValidator.processMessages(this.customerForm, this.validationMessages);
   }
 
   submitCustomer(): void {

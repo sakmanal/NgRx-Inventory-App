@@ -1,0 +1,18 @@
+.flag {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  .lang {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  img {
+    width: 20px;
+    height: 13px;
+  }
+}

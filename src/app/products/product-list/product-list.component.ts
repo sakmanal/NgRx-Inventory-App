@@ -7,8 +7,6 @@ import { Product } from '../product';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent  {
-  pageTitle = 'Products';
-
   @Input() errorMessage: string;
   @Input() products: Product[];
   @Input() displayCode: boolean;

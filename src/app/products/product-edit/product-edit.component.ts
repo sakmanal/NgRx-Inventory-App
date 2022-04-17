@@ -5,28 +5,31 @@ import {
   EventEmitter,
   Output,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  OnDestroy
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from '../product';
 import { GenericValidator } from '../../shared/validators/generic-validator';
 import { NumberValidators } from '../../shared/validators/number.validator';
+import { TranslateService } from '@ngx-translate/core';
+import { merge, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss']
 })
-export class ProductEditComponent implements OnInit, OnChanges {
-  pageTitle = 'Product Edit';
+export class ProductEditComponent implements OnInit, OnChanges, OnDestroy {
+  pageTitle = this.translate.instant('Product Edit');
   @Input() errorMessage: string;
   @Input() selectedProduct: Product;
   @Output() create = new EventEmitter<Product>();
   @Output() update = new EventEmitter<Product>();
   @Output() delete = new EventEmitter<Product>();
   @Output() clearCurrent = new EventEmitter<void>();
-
+  formSub: Subscription;
   productForm: FormGroup;
 
   // Use with the generic validation message class
@@ -34,26 +37,37 @@ export class ProductEditComponent implements OnInit, OnChanges {
   private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private translate: TranslateService) {
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
+    this.initValidationMessages();
+
+    // Define an instance of the validator for use with this form
+    this.genericValidator = new GenericValidator();
+  }
+
+  initValidationMessages(): void {
     this.validationMessages = {
       productName: {
-        required: 'Product name is required.',
-        minlength: 'Product name must be at least three characters.',
-        maxlength: 'Product name cannot exceed 50 characters.'
+        required: this.translate.instant('Product name is required.'),
+        minlength: this.translate.instant('Product name must be at least three characters.'),
+        maxlength: this.translate.instant('Product name cannot exceed 50 characters.')
       },
       productCode: {
-        required: 'Product code is required.'
+        required: this.translate.instant('Product code is required.')
       },
       starRating: {
-        range: 'Rate the product between 1 (lowest) and 5 (highest).'
+        range: this.translate.instant('Rate the product between 1 (lowest) and 5 (highest).')
       }
     };
+  }
 
-    // Define an instance of the validator for use with this form,
-    // passing in this form's set of validation messages.
-    this.genericValidator = new GenericValidator(this.validationMessages);
+  initPageTitle(product: Product) : void {
+    if (product.id === 0) {
+      this.pageTitle = this.translate.instant('Add Product');
+    } else {
+      this.pageTitle = `${this.translate.instant('Edit Product')}: ${product.productName}`;
+    }
   }
 
   ngOnInit(): void {
@@ -65,10 +79,15 @@ export class ProductEditComponent implements OnInit, OnChanges {
       description: ''
     });
 
-    // Watch for value changes for validation
-    this.productForm.valueChanges.subscribe(
-      () => this.displayMessage = this.genericValidator.processMessages(this.productForm)
-    );
+    // Watch for value changes for validation and translations
+    merge(this.translate.onLangChange, this.productForm.valueChanges)
+    .subscribe((res) => {
+      if (res?.lang) {
+        this.initPageTitle(this.selectedProduct);
+        this.initValidationMessages();
+      }
+      this.displayMessage = this.genericValidator.processMessages(this.productForm, this.validationMessages);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -79,10 +98,14 @@ export class ProductEditComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    this.formSub.unsubscribe();
+  }
+
   // Also validate on blur
   // Helpful if the user tabs through required fields
   blur(): void {
-    this.displayMessage = this.genericValidator.processMessages(this.productForm);
+    this.displayMessage = this.genericValidator.processMessages(this.productForm, this.validationMessages);
   }
 
   displayProduct(product: Product | null): void {
@@ -91,11 +114,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
       this.productForm.reset();
 
       // Display the appropriate page title
-      if (product.id === 0) {
-        this.pageTitle = 'Add Product';
-      } else {
-        this.pageTitle = `Edit Product: ${product.productName}`;
-      }
+      this.initPageTitle(product);
 
       // Update the data on the form
       this.productForm.patchValue({

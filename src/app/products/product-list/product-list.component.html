@@ -7,9 +7,9 @@
 <p-orderList
   [value]="products"
   [listStyle]="{ height: 'auto' }"
-  [header]="pageTitle"
+  header="{{ 'Products' | translate }}"
   filterBy="productName"
-  filterPlaceholder="Filter by name"
+  filterPlaceholder="{{ 'Filter by name' | translate }}"
   metaKeySelection="false"
   controlsPosition="right"
   (onSelectionChange)="productSelected($event.value[0])"
@@ -29,14 +29,14 @@
   <button
     type="button"
     pButton
-    label="Add"
+    label="{{ 'Add' | translate}}"
     icon="pi pi-plus"
     style="margin: 0.25em; min-width: 90px;"
     (click)="newProduct()"
   ></button>
-  <label>
+  <label style="display: flex; align-items: center;">
     <input type="checkbox" (change)="checkChanged()" [checked]="displayCode" />
-    Display Product Code
+    <span style="margin-left: 5px;">{{ "Display Product Code" | translate }}</span>
   </label>
 </div>
 

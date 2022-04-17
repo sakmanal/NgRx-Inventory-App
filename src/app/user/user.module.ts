@@ -13,6 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { PrimeNgModule } from '../primeng.module';
 import { UserEffects } from './state/user.effects';
 import { LoginpageGuardService } from './loginPage-guard.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 const userRoutes: Routes = [
   { path: 'login', canActivate: [LoginpageGuardService], component: LoginComponent }
@@ -24,7 +25,8 @@ const userRoutes: Routes = [
     RouterModule.forChild(userRoutes),
     StoreModule.forFeature('users', userReducer),
     EffectsModule.forFeature([UserEffects]),
-    PrimeNgModule
+    PrimeNgModule,
+    TranslateModule
   ],
   declarations: [
     LoginComponent
