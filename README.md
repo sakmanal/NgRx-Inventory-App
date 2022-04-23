@@ -8,6 +8,8 @@ Check demo [here](https://sakmanal.github.io/NgRx-Inventory-App) !!
 
 - State Management with NgRX.
 - Unidirectional data flow with Container and Presentation components pattern.
+- Dark mode support.
+- Translation support.
 - PrimeNg Component Library.
 - Containerize the app with Docker.
 
