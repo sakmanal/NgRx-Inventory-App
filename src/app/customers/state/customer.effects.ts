@@ -8,13 +8,15 @@ import { MessageService } from 'primeng/api';
 /* NgRx */
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CustomerApiActions, CustomerPageActions } from './actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class CustomerEffects {
   constructor(
     private actions$: Actions,
     private customerService: CustomerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {}
 
   loadCustomers$ = createEffect(() => {
@@ -39,7 +41,11 @@ export class CustomerEffects {
       concatMap((action) =>
         this.customerService.updateCustomer(action.customer).pipe(
           tap((customer) =>  {
-            this.messageService.add({severity: 'success', summary: 'Success', detail:  `${customer.name} updated successfully`});
+            this.messageService.add({
+              severity: 'success',
+              summary: this.translate.instant('Success'),
+              detail:  `${customer.name} ${this.translate.instant('updated successfully')}`
+            });
           }),
           map((customer) => CustomerApiActions.updateCustomerSuccess({ customer })),
           catchError((error) =>
@@ -55,7 +61,11 @@ export class CustomerEffects {
       ofType(CustomerPageActions.createCustomer),
       concatMap((action) =>
         this.customerService.createCustomer(action.customer).pipe(
-          tap((customer) =>  this.messageService.add({severity: 'success', summary: 'Success', detail:  `${customer.name} created successfully`})),
+          tap((customer) =>  this.messageService.add({
+              severity: 'success',
+              summary: this.translate.instant('Success'),
+              detail:  `${customer.name} ${this.translate.instant('created successfully')}`
+          })),
           map((customer) => CustomerApiActions.createCustomerSuccess({ customer })),
           catchError((error) =>
             of(CustomerApiActions.createCustomerFailure({ error }))
@@ -70,7 +80,11 @@ export class CustomerEffects {
       ofType(CustomerPageActions.deleteCustomer),
       mergeMap((action) =>
         this.customerService.deleteCustomer(action.customerId).pipe(
-          tap(() =>  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Deleted successfully'})),
+          tap(() =>  this.messageService.add({
+              severity: 'success',
+              summary: this.translate.instant('Success'),
+              detail: this.translate.instant('Deleted successfully')
+          })),
           map(() =>
             CustomerApiActions.deleteCustomerSuccess({
               customerId: action.customerId,

@@ -1,12 +1,12 @@
 <form novalidate (ngSubmit)="submitCustomer()" [formGroup]="customerForm" autocomplete="off">
   <div class="p-fluid">
     <div class="p-field">
-      <label for="CustomerName">Customer Name</label>
+      <label for="CustomerName">{{'Customer Name' | translate}}</label>
       <input
         [ngClass]="{ 'p-invalid': displayMessage.name }"
         id="CustomerName"
         type="text"
-        placeholder="Name (required)"
+        placeholder="{{'Name (required)' | translate}}"
         formControlName="name"
         (blur)="blur()"
         pInputText
@@ -21,12 +21,12 @@
       </small>
     </div>
     <div class="p-field">
-      <label for="CustomerCompany">Customer's Company</label>
+      <label for="CustomerCompany">{{'Customer\'s Company' | translate}}</label>
       <input
         [ngClass]="{ 'p-invalid': displayMessage.company }"
         id="CustomerCompany"
         type="text"
-        placeholder="Company (required)"
+        placeholder="{{'Company (required)' | translate}}"
         formControlName="company"
         (blur)="blur()"
         pInputText
@@ -40,7 +40,7 @@
       </small>
     </div>
     <div class="p-field">
-      <label for="CustomerCountry">Customer's Company</label>
+      <label for="CustomerCountry">{{'Customer\'s Country' | translate}}</label>
       <p-dropdown
         [options]="countries"
         id="CustomerCountry"
@@ -48,8 +48,8 @@
         [filter]="true"
         filterBy="name"
         formControlName="country"
-        (blur)="blur()"
-        placeholder="Select a Country (required)"
+        (onBlur)="blur()"
+        placeholder="{{'Country (required)' | translate }}"
         aria-describedby="CustomerCountry-help"
         >
         <ng-template let-country pTemplate="item">
@@ -70,13 +70,13 @@
       </small>
     </div>
     <div class="p-field">
-      <label for="CustomerStatus">Customer's Status</label>
+      <label for="CustomerStatus">{{'Customer\'s Status' | translate}}</label>
       <p-dropdown
         [options]="statuses"
         id="CustomerStatus"
         formControlName="status"
-        (blur)="blur()"
-        placeholder="Select a Status (required)"
+        (onBlur)="blur()"
+        placeholder="{{'Status (required)' | translate}}"
         aria-describedby="CustomerStatus-help"
       >
       </p-dropdown>
@@ -88,12 +88,12 @@
       </small>
     </div>
     <div class="p-field">
-      <label for="lifetimeValue">Lifetime Value</label>
+      <label for="lifetimeValue">{{'Lifetime Value' | translate}}</label>
       <p-inputNumber
         id="lifetimeValue"
         mode="currency"
         currency="EUR"
-        placeholder="Lifetime Value"
+        placeholder="{{'Lifetime Value' | translate}}"
         formControlName="lifetimeValue"
         locale="de-DE"
       >
@@ -103,7 +103,8 @@
 
   <button pButton
           type="button"
-          pRipple label="Save"
+          pRipple
+          label="{{'Save' | translate}}"
           icon="pi pi-check"
           (click)="submitCustomer()"
           [disabled]="!customerForm.valid || !customerForm.dirty"
@@ -111,7 +112,8 @@
   </button>
   <button pButton
           type="button"
-          pRipple label="Cancel"
+          pRipple
+          label="{{'Cancel' | translate}}"
           icon="pi pi-times"
           class="p-button-text" (click)="cancel()">
   </button>

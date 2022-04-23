@@ -43,3 +43,7 @@ body {
 .p-menubar .p-menubar-root-list {
   background: var(--primary-color) !important;
 }
+
+.p-orderlist .p-orderlist-controls {
+  display: none !important;
+}

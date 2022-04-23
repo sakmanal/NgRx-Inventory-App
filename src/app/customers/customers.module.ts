@@ -13,6 +13,7 @@ import { customerReducer } from './state/customer.reducer';
 import { CustomerEffects } from './state/customer.effects';
 
 import { PrimeNgModule } from '../primeng.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CustomerShellComponent } from './customer-shell/customer-shell.component';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
@@ -29,6 +30,7 @@ const customerRoutes: Routes = [{ path: '', component: CustomerShellComponent }]
     EffectsModule.forFeature([CustomerEffects]),
     PrimeNgModule,
     RouterModule.forChild(customerRoutes),
+    TranslateModule
   ],
   providers: [
     {
