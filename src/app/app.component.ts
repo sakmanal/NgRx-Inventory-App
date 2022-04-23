@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ThemeService } from './core/theme.service';
+import { TranslationService } from './core/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() { }
+  constructor(private themeService: ThemeService, private translationService: TranslationService) {
+    this.themeService.initTheme();
+    this.translationService.initTranslations();
+   }
 
 }

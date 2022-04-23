@@ -13,6 +13,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 
 import { PrimeNgModule } from '../primeng.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const productRoutes: Routes = [{ path: '', component: ProductShellComponent }];
 
@@ -22,7 +23,8 @@ const productRoutes: Routes = [{ path: '', component: ProductShellComponent }];
     RouterModule.forChild(productRoutes),
     StoreModule.forFeature('products', productReducer),
     EffectsModule.forFeature([ProductEffects]),
-    PrimeNgModule
+    PrimeNgModule,
+    TranslateModule
   ],
   declarations: [
     ProductShellComponent,

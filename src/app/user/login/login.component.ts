@@ -16,8 +16,6 @@ import { UserPageActions } from '../state/actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  pageTitle = 'Log In';
-
   maskUserName$: Observable<boolean>;
   error$: Observable<string>;
 

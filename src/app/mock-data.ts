@@ -67,7 +67,7 @@ export class MockData implements InMemoryDbService {
             company: 'Reyxap C.A',
             status: 'proposal',
             lifetimeValue: 3000,
-            image: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg'
+            image: 'https://randomuser.me/api/portraits/men/46.jpg'
           },
           {
             id: 1003,
@@ -79,7 +79,7 @@ export class MockData implements InMemoryDbService {
             company: 'BMW Inc.',
             status: 'unqualified',
             lifetimeValue: 4000,
-            image: 'https://uifaces.co/our-content/donated/6MWH9Xi_.jpg'
+            image: 'https://randomuser.me/api/portraits/men/36.jpg'
           },
           {
             id: 1004,

@@ -8,13 +8,15 @@ import { MessageService } from 'primeng/api';
 /* NgRx */
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductPageActions, ProductApiActions } from './actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class ProductEffects {
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {}
 
   loadProducts$ = createEffect(() => {
@@ -38,7 +40,11 @@ export class ProductEffects {
       ofType(ProductPageActions.updateProduct),
       concatMap((action) =>
         this.productService.updateProduct(action.product).pipe(
-          tap((product) =>  this.messageService.add({severity: 'success', summary: 'Success', detail:  `${product.productName} updated successfully`})),
+          tap((product) =>  this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant('Success'),
+            detail:  `${product.productName} ${this.translate.instant('updated successfully')}`
+          })),
           map((product) => ProductApiActions.updateProductSuccess({ product })),
           catchError((error) =>
             of(ProductApiActions.updateProductFailure({ error }))
@@ -53,7 +59,11 @@ export class ProductEffects {
       ofType(ProductPageActions.createProduct),
       concatMap((action) =>
         this.productService.createProduct(action.product).pipe(
-          tap((product) =>  this.messageService.add({severity: 'success', summary: 'Success', detail:  `${product.productName} created successfully`})),
+          tap((product) =>  this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant('Success'),
+            detail:  `${product.productName} ${this.translate.instant('created successfully')}`
+          })),
           map((product) => ProductApiActions.createProductSuccess({ product })),
           catchError((error) =>
             of(ProductApiActions.createProductFailure({ error }))
@@ -68,7 +78,11 @@ export class ProductEffects {
       ofType(ProductPageActions.deleteProduct),
       mergeMap((action) =>
         this.productService.deleteProduct(action.productId).pipe(
-          tap(() =>  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Deleted successfully'})),
+          tap(() =>  this.messageService.add({
+            severity: this.translate.instant('success'),
+            summary: 'Success',
+            detail: this.translate.instant('Deleted successfully')
+          })),
           map(() =>
             ProductApiActions.deleteProductSuccess({
               productId: action.productId,

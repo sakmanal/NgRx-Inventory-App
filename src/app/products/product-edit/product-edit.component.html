@@ -5,16 +5,16 @@
     </ng-template>
   </p-messages> -->
 
-  <p-card [header]="pageTitle" *ngIf="selectedProduct">
+  <p-card header="{{ pageTitle | translate}}" *ngIf="selectedProduct">
     <form novalidate (ngSubmit)="saveProduct()" [formGroup]="productForm" autocomplete="off">
       <div class="p-fluid">
         <div class="p-field">
-          <label for="productNameId">Product Name</label>
+          <label for="productNameId">{{'Product Name' | translate}}</label>
           <input
             [ngClass]="{ 'p-invalid': displayMessage.productName }"
             id="productNameId"
             type="text"
-            placeholder="Name (required)"
+            placeholder="{{'Name (required)' | translate}}"
             formControlName="productName"
             (blur)="blur()"
             pInputText
@@ -24,16 +24,16 @@
             *ngIf="displayMessage.productName"
             id="productName-help"
             class="p-invalid"
-            >{{ displayMessage.productName }}
+            >{{ displayMessage.productName}}
           </small>
         </div>
         <div class="p-field">
-          <label for="productCodeId">Product Code</label>
+          <label for="productCodeId">{{'Product Code' | translate}}</label>
           <input
             [ngClass]="{ 'p-invalid': displayMessage.productCode }"
             id="productCodeId"
             type="text"
-            placeholder="Code (required)"
+            placeholder="{{'Code (required)' | translate}}"
             formControlName="productCode"
             (blur)="blur()"
             pInputText
@@ -47,18 +47,18 @@
           </small>
         </div>
         <div class="p-field">
-          <label for="starRatingId">Star Rating (1-5)</label>
+          <label for="starRatingId">{{'Rating' | translate}} (1-5)</label>
           <p-rating formControlName="starRating" id="starRatingId"></p-rating>
           <small *ngIf="displayMessage.starRating" class="p-invalid">
             {{ displayMessage.starRating }}
           </small>
         </div>
         <div class="p-field">
-          <label for="descriptionId">Product Description</label>
+          <label for="descriptionId">{{"Product Description" | translate}}</label>
           <textarea
             [ngClass]="{ 'p-invalid': displayMessage.description }"
             id="descriptionId"
-            placeholder="Description"
+            placeholder="{{'Description' | translate}}"
             [rows]="3"
             formControlName="description"
             (blur)="blur()"
@@ -78,14 +78,14 @@
         pButton
         pRipple
         type="submit"
-        label="Save"
+        label="{{'Save' | translate}}"
         [disabled]="!productForm.valid || !productForm.dirty"
       ></button>
       <button
         pButton
         pRipple
         type="button"
-        label="Cancel"
+        label="{{'Cancel' | translate}}"
         class="p-button-secondary p-ml-2"
         (click)="cancelEdit()"
       ></button>
@@ -93,7 +93,7 @@
         pButton
         pRipple
         type="button"
-        label="Delete"
+        label="{{'Delete' | translate}}"
         (click)="deleteProduct()"
         class="p-button-danger p-ml-2 p-mt-2"
       ></button>
